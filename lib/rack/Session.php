@@ -26,9 +26,7 @@
 
 */
 
-namespace rack;
-
-class Session implements \Iterator, \ArrayAccess
+class Session implements Iterator, ArrayAccess
 {
 	private $loaded = false;
 

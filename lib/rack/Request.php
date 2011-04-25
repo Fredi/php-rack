@@ -26,9 +26,7 @@
 
 */
 
-namespace rack;
-
-class Request implements \ArrayAccess
+class Request implements ArrayAccess
 {
 	protected $env = null;
 

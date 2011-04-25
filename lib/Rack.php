@@ -26,8 +26,6 @@
 
 */
 
-namespace rack;
-
 define('DS', DIRECTORY_SEPARATOR);
 define('RACK_LIB_ROOT', dirname(__FILE__));
 if (!defined('RACK_ROOT'))
@@ -239,7 +237,7 @@ class Rack
 		self::$env['rack.multiprocess'] = false;
 		self::$env['rack.run_once'] = false;
 		
-		self::$env['rack.session'] = new \Rack\Session();
+		self::$env['rack.session'] = new Session();
 		self::$env['rack.input'] = fopen('php://input', 'r');
 		self::$env['rack.errors'] = fopen('php://stderr', 'w');
 

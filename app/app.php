@@ -1,7 +1,4 @@
 <?php
-
-use \Rack\Rack;
-
 class App
 {
 	function call(&$env)

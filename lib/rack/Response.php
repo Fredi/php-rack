@@ -26,8 +26,6 @@
 
 */
 
-namespace rack;
-
 class Response
 {
 

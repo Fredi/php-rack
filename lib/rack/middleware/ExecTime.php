@@ -26,8 +26,6 @@
 
 */
 
-namespace rack\middleware;
-
 /**
  * Middleware to give the total execution time. Make sure
  * this is the top of the stack for the most accurate results.
