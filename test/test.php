@@ -3,8 +3,6 @@
 require_once(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'Rack.php');
 require_once(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'rack' . DIRECTORY_SEPARATOR . 'middleware' . DIRECTORY_SEPARATOR . 'ExecTime.php');
 
-use rack\Rack;
-
 class RackTest extends PHPUnit_Framework_TestCase
 {
 	public function setUp()
