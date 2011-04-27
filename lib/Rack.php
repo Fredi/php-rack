@@ -331,5 +331,9 @@ class Rack
 			require_once($file);
 		}
 	}
-	
+
+	public static function http_status_codes()
+	{
+		return self::$_statuses;
+	}
 }
