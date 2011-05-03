@@ -7,6 +7,7 @@ class RackTest extends PHPUnit_Framework_TestCase
 {
 	public function setUp()
 	{
+		$_SERVER['REQUEST_URI'] = '/';
 	}
 
 	public function tearDown()
@@ -16,7 +17,7 @@ class RackTest extends PHPUnit_Framework_TestCase
 
 	public function testApp()
 	{
-		Rack::add('MockApp', MockApp);
+		Rack::add('MockApp');
 		list($status, $headers, $body) = Rack::run(array(), false);
 		$this->assertEquals(200, $status);
 		$this->assertEquals('HTTP/1.1 200 OK', array_shift(array_keys($headers)));
@@ -27,24 +28,24 @@ class RackTest extends PHPUnit_Framework_TestCase
 
 	public function testAddMiddleware()
 	{
-		Rack::add('MockMiddleware', MockMiddleware);
-		Rack::add('MockApp', MockApp);
+		Rack::add('MockMiddleware');
+		Rack::add('MockApp');
 		list($status, $headers, $body) = Rack::run(array(), false);
 		$this->assertEquals('TEST OUTPUT', $body[0]);
 	}
 
 	public function testInsertBeforeMiddleware()
 	{
-		Rack::add('MockApp', MockApp);
-		Rack::insertBefore('MockApp', 'MockMiddleware', MockMiddleware);
+		Rack::add('MockApp');
+		Rack::insertBefore('MockApp', 'MockMiddleware');
 		list($status, $headers, $body) = Rack::run(array(), false);
 		$this->assertEquals('TEST OUTPUT', $body[0]);
 	}
 
 	public function testInsertAfterMiddleware()
 	{
-		Rack::add('MockMiddleware', MockMiddleware);
-		Rack::insertAfter('MockMiddleware', 'MockApp', MockApp);
+		Rack::add('MockMiddleware');
+		Rack::insertAfter('MockMiddleware', 'MockApp');
 		list($status, $headers, $body) = Rack::run(array(), false);
 		$this->assertEquals('TEST OUTPUT', $body[0]);
 	}
@@ -53,15 +54,15 @@ class RackTest extends PHPUnit_Framework_TestCase
 	{
 		Rack::add('MockMiddleware', null);
 		Rack::add('MockApp', null);
-		Rack::replace('MockMiddleware', MockMiddleware);
-		Rack::replace('MockApp', MockApp);
+		Rack::replace('MockMiddleware', 'MockMiddleware');
+		Rack::replace('MockApp', 'MockApp');
 		list($status, $headers, $body) = Rack::run(array(), false);
 		$this->assertEquals('TEST OUTPUT', $body[0]);
 	}
 
 	public function test404Headers()
 	{
-		Rack::add('MockApp404', MockApp404);
+		Rack::add('MockApp404');
 		list($status, $headers, $body) = Rack::run(array(), false);
 		$this->assertEquals(404, $status);
 		$this->assertEquals('HTTP/1.1 404 Not Found', array_shift(array_keys($headers)));
@@ -71,9 +72,9 @@ class RackTest extends PHPUnit_Framework_TestCase
 
 	public function testExecTime()
 	{
-		Rack::add('\Rack\Middleware\ExecTime');
-		Rack::add('MockMiddleware', MockMiddleware);
-		Rack::add('MockApp', MockApp);
+		Rack::add('ExecTime');
+		Rack::add('MockMiddleware');
+		Rack::add('MockApp');
 		list($status, $headers, $body) = Rack::run(array(), false);
 
 		//Make sure last line contains the comment -- that's our exec time
