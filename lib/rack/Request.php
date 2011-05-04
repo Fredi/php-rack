@@ -188,6 +188,11 @@ class Request implements ArrayAccess
 		return $this->env['HTTP_USER_AGENT'];
 	}
 
+	public function serverName()
+	{
+		return $this->env['SERVER_NAME'];
+	}
+
 	public function isXhr()
 	{
 		return isset($this->env['HTTP_X_REQUESTED_WITH']) && $this->env['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
