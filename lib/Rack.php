@@ -306,7 +306,7 @@ class Rack
 		self::$constructed = false;
 
 		//Mainly for testing purposes
-		return array($status, $headers, $body);
+		return array($status, $headers, array($body));
 	}
 
 	private static function sendHeader($key, $value = '', $send_output = true)
