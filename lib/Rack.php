@@ -264,6 +264,11 @@ class Rack
 		$first = current(array_keys(self::$middleware));
 		list($status, $headers, $body) = self::$middleware[$first]->call(self::$env);
 
+		if (is_array($body))
+			$body = implode("", $body);
+
+		$headers['Content-Length'] = strlen($body);
+
 		@fclose($env['rack.input']);
 		@fclose($env['rack.errors']);
 
@@ -296,16 +301,7 @@ class Rack
 		
 		// output body
 		if ($send_output)
-		{
-			if (is_array($body))
-			{
-				echo implode("", $body);
-			}
-			else
-			{
-				echo $body;
-			}
-		}
+			echo $body;
 
 		self::$constructed = false;
 
